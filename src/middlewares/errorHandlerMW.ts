@@ -4,6 +4,8 @@ export default function errorHandlerMW(err: Error | any, req: Request, res: Resp
 
     function errorTypeToStatusCode(errorType: string) {
         if(errorType === "error_email_already_used") return 403;
+        if(errorType === "error_user_not_found") return 404;
+        if(errorType === "error_wrong_password") return 401;
 
         return 400;
     }
