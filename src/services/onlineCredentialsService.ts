@@ -1,6 +1,7 @@
 import * as onlineCredentialsRepository from "../repositories/onlineCredentialsRepository";
 import { ICreationOnlineCredentialData, IOnlineCredentialData } from "../types/onlineCredentialsTypes";
 import Cryptr from "cryptr";
+const cryptr = new Cryptr(process.env.CRYPTR_KEY!);
 
 export async function createNewOnlineCredential(credentialData: ICreationOnlineCredentialData, userId: number) {
 
@@ -9,9 +10,6 @@ export async function createNewOnlineCredential(credentialData: ICreationOnlineC
     if(titleCheck?.title) {
         throw {type: "error_duplicated_title", message: "Usuário já tem credencial com mesmo título"};
     }
-
-
-    const cryptr = new Cryptr(process.env.CRYPTR_KEY!);
 
     const encryptedCredentialPassword: string = cryptr.encrypt(credentialData.password);
 
@@ -26,4 +24,14 @@ export async function createNewOnlineCredential(credentialData: ICreationOnlineC
     await onlineCredentialsRepository.insertNewOnlineCredential(newCredential);
 
     return "Credencial salva com sucesso!";
+}
+
+export async function getUserOnlineCredentials(userId: number) {
+    const credentials = await onlineCredentialsRepository.getUserOnlineCredentials(userId);
+
+    const decryptedCredentials = credentials.map(credential => {
+        return {...credential, password: cryptr.decrypt(credential.password)}
+    });
+
+    return decryptedCredentials;
 }

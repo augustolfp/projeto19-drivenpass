@@ -9,3 +9,10 @@ export async function newOnlineCredential (req: Request, res: Response) {
     await onlineCredentialsServices.createNewOnlineCredential(credentialData, userId);
     return res.status(201).send("Credencial cadastrada com sucesso!");
 }
+
+export async function getUserOnlineCredentials(req: Request, res: Response) {
+    const userId: number = Number(res.locals.userData.userId);
+
+    const credentials = await onlineCredentialsServices.getUserOnlineCredentials(userId);
+    return res.status(200).send(credentials);
+}

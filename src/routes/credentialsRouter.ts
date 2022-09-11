@@ -7,5 +7,6 @@ import tokenValidationMW from "../middlewares/tokenValidationMW";
 const credentialsRouter = Router();
 
 credentialsRouter.post('/new-online-credential', tokenValidationMW,validateSchemaMW(onlineCredentialSchema), credentialsController.newOnlineCredential);
+credentialsRouter.get('/get-online-credentials', tokenValidationMW, credentialsController.getUserOnlineCredentials);
 
 export default credentialsRouter;

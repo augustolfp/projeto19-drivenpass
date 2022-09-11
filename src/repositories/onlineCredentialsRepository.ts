@@ -21,3 +21,11 @@ export async function getUserOnlineCredentialByTitle(title: string, userId: numb
         }
     });
 }
+
+export async function getUserOnlineCredentials(userId: number) {
+    return await prisma.onlineCredentials.findMany({
+        where: {
+            userId: userId
+        }
+    });
+}
