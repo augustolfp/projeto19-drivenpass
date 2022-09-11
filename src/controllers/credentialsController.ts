@@ -16,3 +16,11 @@ export async function getUserOnlineCredentials(req: Request, res: Response) {
     const credentials = await onlineCredentialsServices.getUserOnlineCredentials(userId);
     return res.status(200).send(credentials);
 }
+
+export async function getUserCredentialById(req: Request, res: Response) {
+    const credentialId: number = Number(req.params.id);
+    const userId: number = Number(res.locals.userData.userId);
+
+    const credential = await onlineCredentialsServices.getUserCredentialById(credentialId, userId);
+    return res.status(200).send(credential);
+}

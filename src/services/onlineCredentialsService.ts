@@ -35,3 +35,13 @@ export async function getUserOnlineCredentials(userId: number) {
 
     return decryptedCredentials;
 }
+
+export async function getUserCredentialById(credentialId: number, userId: number) {
+    const credential = await onlineCredentialsRepository.getOnlineCredentialById(credentialId);
+
+    if(credential?.userId !== userId) {
+        throw {type: "Error_credential_is_not_from_user", message: "Credencial não pertence ao usuário!"};
+    }
+
+    return {...credential, password: cryptr.decrypt(credential.password)};
+}

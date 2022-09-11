@@ -8,5 +8,6 @@ const credentialsRouter = Router();
 
 credentialsRouter.post('/new-online-credential', tokenValidationMW,validateSchemaMW(onlineCredentialSchema), credentialsController.newOnlineCredential);
 credentialsRouter.get('/get-online-credentials', tokenValidationMW, credentialsController.getUserOnlineCredentials);
+credentialsRouter.get('/get-online-credential/:id',tokenValidationMW,credentialsController.getUserCredentialById);
 
 export default credentialsRouter;
