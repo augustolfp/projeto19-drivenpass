@@ -6,7 +6,7 @@ export async function create(noteData: ICreationSafeNotesData, userId: number) {
     const titleCheck = await safeNotesRepo.getByTitle(noteData.title, userId);
 
     if(titleCheck?.title) {
-        throw {type: "error_duplicated_title", message: "Usuário já tem credencial com mesmo título"};
+        throw {type: "error_duplicated_title", message: "Usuário já tem nota com mesmo título"};
     }
 
     const newNote: ISafeNotesData = {
