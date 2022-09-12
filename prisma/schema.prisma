@@ -24,6 +24,7 @@ model Users {
   wifiCredentials WifiCredentials[]
   onlineCredentials OnlineCredentials[]
   cardCredentials CardCredentials[]
+  safeNotes SafeNotes[]
 }
 
 model WifiCredentials {
@@ -57,4 +58,12 @@ model CardCredentials {
   cardNumber String
   CVV String
   password String
+}
+
+model SafeNotes {
+  id Int @id @default(autoincrement())
+  user Users @relation(fields: [userId], references: [id])
+  userId Int
+  title String
+  note String
 }
