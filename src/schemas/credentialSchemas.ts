@@ -12,3 +12,14 @@ export const wifiCredentialSchema = Joi.object({
     wifiName: Joi.string().required(),
     password: Joi.string().required()
 });
+
+export const cardCredentialSchema = Joi.object({
+    title: Joi.string().required(),
+    cardName: Joi.string().required(),
+    expirationDate: Joi.string().required(),
+    isVirtual: Joi.boolean().required(),
+    type: Joi.string().valid('Debit', 'Credit', 'Debit_and_Credit').required(),
+    cardNumber: Joi.string().required(),
+    CVV: Joi.string().required(),
+    password: Joi.string().required()
+});
