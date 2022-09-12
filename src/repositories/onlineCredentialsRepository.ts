@@ -1,19 +1,19 @@
 import { prisma } from "../config/database";
 import { IOnlineCredentialData } from "../types/onlineCredentialsTypes";
 
-export async function insertNewOnlineCredential(onlineCredential: IOnlineCredentialData) {
-    return await prisma.onlineCredentials.create({data: onlineCredential});
+export async function create(credential: IOnlineCredentialData) {
+    return await prisma.onlineCredentials.create({data: credential});
 }
 
-export async function getOnlineCredentialById(id: number) {
+export async function getById(credentialId: number) {
     return await prisma.onlineCredentials.findUnique({
         where: {
-            id: id
+            id: credentialId
         }
     });
 }
 
-export async function getUserOnlineCredentialByTitle(title: string, userId: number) {
+export async function getByTitle(title: string, userId: number) {
     return await prisma.onlineCredentials.findFirst({
         where: {
             title: title,
@@ -22,7 +22,7 @@ export async function getUserOnlineCredentialByTitle(title: string, userId: numb
     });
 }
 
-export async function getUserOnlineCredentials(userId: number) {
+export async function getByUser(userId: number) {
     return await prisma.onlineCredentials.findMany({
         where: {
             userId: userId
