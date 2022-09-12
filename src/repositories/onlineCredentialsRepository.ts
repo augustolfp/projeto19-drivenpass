@@ -1,3 +1,4 @@
+import { number } from "joi";
 import { prisma } from "../config/database";
 import { IOnlineCredentialData } from "../types/onlineCredentialsTypes";
 
@@ -26,6 +27,14 @@ export async function getByUser(userId: number) {
     return await prisma.onlineCredentials.findMany({
         where: {
             userId: userId
+        }
+    });
+}
+
+export async function deleteCredential(credentialId: number) {
+    return await prisma.onlineCredentials.delete({
+        where: {
+            id: credentialId
         }
     });
 }

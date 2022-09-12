@@ -45,3 +45,15 @@ export async function getCredential(credentialId: number, userId: number) {
 
     return {...credential, password: cryptr.decrypt(credential.password)};
 }
+
+export async function deleteCredential(credentialId: number, userId: number) {
+
+    const credential = await credentialsRepo.getById(credentialId);
+
+    if(credential?.userId !== userId) {
+        throw {type: "Error_credential_is_not_from_user", message: "Credencial não pertence ao usuário!"};
+    }
+    
+    await credentialsRepo.deleteCredential(credentialId);
+    return "Credencial apagada com sucesso!";
+}
