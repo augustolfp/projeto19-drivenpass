@@ -1,4 +1,3 @@
-import { number } from "joi";
 import { prisma } from "../config/database";
 import { IOnlineCredentialData } from "../types/onlineCredentialsTypes";
 
